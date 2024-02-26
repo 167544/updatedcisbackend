@@ -25,7 +25,26 @@ let fetchbasedOnCondition = express.Router().get("/:boxname", (req, res) => {
                 });
             }   else if (box == "Total Customers") {
 
-                db.collection("https://gitlab.com/gayathri3174/employeedashboard.git").find({ "Customer ID": { $exists: true }}).toArray((err, result) => {
+                db.collection("employeeDetails").find({ "Customer ID": { $exists: true }}).toArray((err, result) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.send(result);
+                    }
+                });
+            } else if (box == "seletedlist") {
+
+                db.collection("employeeDetails").find({ "shortlisted": true}).toArray((err, result) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.send(result);
+                    }
+                });
+            }
+            else if (box == "removedlist") {
+
+                db.collection("employeeDetails").find({ "shortlisted": false}).toArray((err, result) => {
                     if (err) {
                         throw err;
                     } else {
